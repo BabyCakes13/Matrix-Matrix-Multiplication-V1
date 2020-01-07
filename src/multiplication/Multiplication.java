@@ -20,7 +20,7 @@ public class Multiplication {
 		this.bMatrix = bMatrix;
 		
 		this.matrixSize = aMatrix.length;
-		this.totalTimeToRun = this.aMatrix.length; // TODO wrong! Check the actual time.
+		this.totalTimeToRun = this.aMatrix.length + this.bMatrix.length; // TODO wrong! Check the actual time.
 		this.initialiseResultMatrix();
 	}
 	
@@ -54,7 +54,7 @@ public class Multiplication {
 		 * TODO NOT NECESSARY because we always have something to feed the first time.
 		 */
 		
-		
+		// TODO implement traverse
 	}
 	
 	public void displayMatrix(Cell[][] matrix) {

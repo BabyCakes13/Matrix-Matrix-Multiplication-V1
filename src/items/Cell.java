@@ -1,23 +1,23 @@
 package items;
 
 public class Cell {
-	private float sum;
+	private float partialSum;
 	
 	public Cell(float sum) {
-		this.sum = sum;
+		this.partialSum = sum;
 	}
 	
 	public float getSum() {
-		return this.sum;
+		return this.partialSum;
 	}
 	
 	public float computeSum(float aInput, float bInput) {
-		this.sum = sum + aInput*bInput;
-		return this.sum;
+		this.partialSum = partialSum + aInput*bInput;
+		return this.partialSum;
 	}
 	
 	@Override
 	public String toString() {
-		return "Cell[" + this.sum + "]";
+		return "Cell[" + this.partialSum + "]";
 	}
 }
