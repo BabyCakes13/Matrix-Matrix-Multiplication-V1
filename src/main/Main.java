@@ -17,8 +17,8 @@ public class Main {
 				{7, 8, 9}
 		};
 		
-		Multiplication m = new Multiplication(aMatrix, bMatrix);
-		m.displayMatrix(aMatrix);
-		m.displayMatrix(m.getMultiplicationMatrix());
+		//Multiplication m = new Multiplication(aMatrix, bMatrix);
+		//m.displayMatrix(aMatrix);
+		//m.displayMatrix(m.getMultiplicationMatrix());
 	}
 }
