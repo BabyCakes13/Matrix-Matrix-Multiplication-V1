@@ -14,7 +14,7 @@ import multiplication.Multiplication;
 
 public class InputContainer extends Container{
 	private JPanel inputContainer;
-	private float[][] matrix;
+	private float[][] firstMatrix, secondMatrix;
 	private int matrixSize;
 	
 	public InputContainer(MatrixDisplayContainer equationContainer, JFrame frame, String containerTitle) {
@@ -32,13 +32,23 @@ public class InputContainer extends Container{
 	}
 	
 	private void setAMatrix(float[][] matrix) {
-		this.matrix = matrix;
+		this.firstMatrix = matrix;
 		System.out.println("Matrix has been set");
-		this.displayMatrix(this.matrix);
+		this.displayMatrix(this.firstMatrix);
 	}
 	
 	public float[][] getAMatrix() {
-		return this.matrix;
+		return this.firstMatrix;
+	}
+	
+	private void setBMatrix(float[][] matrix) {
+		this.secondMatrix = matrix;
+		System.out.println("Matrix has been set");
+		this.displayMatrix(this.secondMatrix);
+	}
+	
+	public float[][] getBMatrix() {
+		return this.secondMatrix;
 	}
 	
 	private void addCoefficients(MatrixDisplayContainer matrixDC) {
@@ -67,6 +77,11 @@ public class InputContainer extends Container{
 				if(matrix != null) {
 					setAMatrix(matrix);
 					matrixDC.displayMatrix(matrix, "ADDED FIRST MATRIX:\n");
+					
+					if(secondMatrix != null) {
+						System.out.println("INITIATE");
+						// initiate multiplication screen
+					}
 				}
 			}
 		});
@@ -108,8 +123,13 @@ public class InputContainer extends Container{
 				String inputValue = secondMatrixInputField.getText();
 				float[][] matrix = buildMatrix(inputValue, secondMatrixLabel);
 				if(matrix != null) {
-					setAMatrix(matrix);
+					setBMatrix(matrix);
 					matrixDC.displayMatrix(matrix, "ADDED SECOND MATRIX:\n");
+					
+					if(firstMatrix != null) {
+						System.out.println("INITIATE");
+						// initiate multiplication screen
+					}
 				}
 			}
 		});
