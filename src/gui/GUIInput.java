@@ -13,13 +13,16 @@ public class GUIInput extends GUIBase{
 	
 	public void displayGUI() {
 		this.setUpContainers();
-		this.displayFrame(1000, 1000);
+		this.displayFrame(1500, 750);
 	}
 	
 	private void setUpContainers() {
-		MatrixDisplayContainer equationContainer = new MatrixDisplayContainer(this.frame, "Matrices to be multiplied.");
+		MatrixDisplayContainer firstDisplayContainer = new MatrixDisplayContainer(this.frame, "Matrices to be multiplied.");
 		@SuppressWarnings("unused")
-		InputContainer inputContainer = new InputContainer(equationContainer, this.frame, "Input matrices.");
+		InputContainer firstInputContainer = new InputContainer(firstDisplayContainer, this.frame, "Input first matrix.");
+		MatrixDisplayContainer secondDisplayContainer = new MatrixDisplayContainer(this.frame, "Matrices to be multiplied.");
+		@SuppressWarnings("unused")
+		InputContainer secondInputContainer = new InputContainer(secondDisplayContainer, this.frame, "Input secod matrix.");
 	}
 	
 }

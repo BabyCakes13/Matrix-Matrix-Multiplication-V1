@@ -40,24 +40,28 @@ public class MatrixDisplayContainer extends Container{
 		return textArea;
 	}
 	
-	private String buildEquation(ArrayList<Float> coefficients) {
-		StringBuilder equation = new StringBuilder();
-		int power = 0;
+	private String buildDisplayMatrix(float[][] matrix) {
+		StringBuilder matrixBuilder = new StringBuilder();
+		int matrixSize = matrix.length;
 		
-		for(int i = 0; i < coefficients.size(); ++i) {
-			float coefficient = coefficients.get(i);
-			equation.append(" + " + coefficient + "*x^" + power);
-			power++;
+		for(int i = 0; i < matrixSize; ++i) {
+			for(int j = 0; j < matrixSize; ++j) {
+				matrixBuilder.append(matrix[i][j] + " ");
+			}
+			matrixBuilder.append("\n");
 		}
 		
-		return equation.toString();
+		return matrixBuilder.toString();
 	}
 	
-	public void displayEquation(ArrayList<Float> coefficients) {
-		String equation = this.buildEquation(coefficients);
-		System.out.println(equation);
-		this.displayScreen.append(equation);
+	public void displayMatrix(float[][] matrix, String name) {
+		String matrixString = this.buildDisplayMatrix(matrix);
+		System.out.println(matrix);
+		
+		this.displayScreen.append(name + "\n");
+		this.displayScreen.append(matrixString);
 		this.displayScreen.append("\n");
+		
 		this.equationDisplayContainer.revalidate();
 		this.equationDisplayContainer.repaint();
 	}
