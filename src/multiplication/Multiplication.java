@@ -86,7 +86,7 @@ public class Multiplication {
 	
 	public void startTraversing() {
 		
-		int traverseTime = this.firstMatrix.length*2 - 1; // to handle delays
+		int traverseTime = this.firstMatrix.length*2; // to handle delays
 		for(int i = 0; i < traverseTime; ++i) {
 			traverseCells();
 			this.time++;
