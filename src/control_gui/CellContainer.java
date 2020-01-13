@@ -42,8 +42,6 @@ public class CellContainer extends Container{
 	
 	private GridBagConstraints setLayoutConstraints(JComponent object, int gridy, int gridx) {
 		GridBagConstraints constraints = new GridBagConstraints();
-		//constraints.gridheight = this.cells.length;
-		//constraints.gridwidth = this.cells.length;
 		constraints.weightx = 1.0;
         constraints.weighty = 1.0;
 		
