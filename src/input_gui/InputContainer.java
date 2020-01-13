@@ -48,8 +48,8 @@ public class InputContainer extends Container{
 	
 	private void addCoefficients(MatrixDisplayContainer matrixDC) {
 		JLabel addElementsLabel = new JLabel();
-		addElementsLabel.setText("Enter the two matrices to be multiplied.");
-		JTextField inputField = new JTextField(20);
+		addElementsLabel.setText("Matrix size:");
+		JTextField inputField = new JTextField(10);
 		JButton addAButton = new JButton("ADD FIRST MATRIX");
 		JButton addBButton = new JButton("ADD SECOND MATRIX");
 		JButton addSize = new JButton("ADD MATRIX SIZE");
@@ -80,11 +80,11 @@ public class InputContainer extends Container{
 			}
 		});
 		
-		this.setInputLayoutConstraints(addElementsLabel);
-		this.setInputLayoutConstraints(inputField);
-		this.setInputLayoutConstraints(addSize);
-		this.setInputLayoutConstraints(addAButton);
-		this.setInputLayoutConstraints(addBButton);
+		this.setInputLayoutConstraints(addElementsLabel, 1, 1);
+		this.setInputLayoutConstraints(inputField, 1, 2);
+		this.setInputLayoutConstraints(addSize, 1, 3);
+		this.setInputLayoutConstraints(addAButton, 2, 1);
+		this.setInputLayoutConstraints(addBButton, 2, 2);
 		
 		this.inputContainer.add(addElementsLabel);
 		this.inputContainer.add(inputField);

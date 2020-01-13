@@ -35,18 +35,11 @@ public class Container {
 		return gridbag;
 	}
 	
-	protected void setInputLayoutConstraints(JComponent object) {
+	protected void setInputLayoutConstraints(JComponent object, int gridy, int gridx) {
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.BOTH;
-		
-		if (object instanceof JTextField) {
-			constraints.gridy=1;
-			constraints.gridheight=2;
-			this.containerLayout.setConstraints(object, constraints);
-		} else {
-			constraints.gridy=1;
-			constraints.gridheight=2;
-			this.containerLayout.setConstraints(object, constraints);
-		}
+		constraints.gridy=gridy;
+		constraints.gridx=gridx;
+		this.containerLayout.setConstraints(object, constraints);
 	}
 }

@@ -17,12 +17,12 @@ public class GUIInput extends GUIBase{
 	}
 	
 	private void setUpContainers() {
-		MatrixDisplayContainer firstDisplayContainer = new MatrixDisplayContainer(this.frame, "Matrices to be multiplied.");
+		MatrixDisplayContainer firstDisplayContainer = new MatrixDisplayContainer(this.frame, "FIRST MATRIX.");
 		@SuppressWarnings("unused")
-		InputContainer firstInputContainer = new InputContainer(firstDisplayContainer, this.frame, "Input first matrix.");
-		MatrixDisplayContainer secondDisplayContainer = new MatrixDisplayContainer(this.frame, "Matrices to be multiplied.");
+		InputContainer firstInputContainer = new InputContainer(firstDisplayContainer, this.frame, "FIRST MATRIX INPUT SCREEN.");
+		MatrixDisplayContainer secondDisplayContainer = new MatrixDisplayContainer(this.frame, "SECOND MATRIX.");
 		@SuppressWarnings("unused")
-		InputContainer secondInputContainer = new InputContainer(secondDisplayContainer, this.frame, "Input secod matrix.");
+		InputContainer secondInputContainer = new InputContainer(secondDisplayContainer, this.frame, "SECOND MATRIX INPUT SCREEN.");
 	}
 	
 }
