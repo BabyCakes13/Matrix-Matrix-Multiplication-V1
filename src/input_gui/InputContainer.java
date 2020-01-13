@@ -47,50 +47,46 @@ public class InputContainer extends Container{
 	}
 	
 	private void addCoefficients(MatrixDisplayContainer matrixDC) {
-		JLabel addElementsLabel = new JLabel();
-		addElementsLabel.setText("Matrix size:");
-		JTextField inputField = new JTextField(10);
-		JButton addAButton = new JButton("ADD FIRST MATRIX");
-		JButton addBButton = new JButton("ADD SECOND MATRIX");
-		JButton addSize = new JButton("ADD MATRIX SIZE");
+		JLabel sizeLabel = new JLabel();
+		sizeLabel.setText("Matrix size:");
+		JTextField sizeInputField = new JTextField(10);
+		JButton sizeButton = new JButton("ADD MATRIX SIZE");
+
+		JLabel matrixLabel = new JLabel();
+		matrixLabel.setText("Matrix:");
+		JTextField matrixInputField = new JTextField(10);
+		JButton matrixButton = new JButton("ADD MATRIX");
 		
-		addSize.addActionListener(new ActionListener() {
+		sizeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String inputValue = inputField.getText();
-				matrixSize = buildMatrixSize(inputValue, addElementsLabel);
+				String inputValue = sizeInputField.getText();
+				matrixSize = buildMatrixSize(inputValue, sizeLabel);
 				setMatrixSize(matrixSize);
 			}
 		});
 		
-		addAButton.addActionListener(new ActionListener() {
+		matrixButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String inputValue = inputField.getText();
-				float[][] matrix = buildMatrix(inputValue, addElementsLabel);
+				String inputValue = matrixInputField.getText();
+				float[][] matrix = buildMatrix(inputValue, matrixLabel);
 				setAMatrix(matrix);
-				matrixDC.displayMatrix(matrix, "First matrix.");
+				matrixDC.displayMatrix(matrix, "ADDED MATRIX:\n");
 			}
 		});
+
+		this.setInputLayoutConstraints(sizeLabel, 1, 1);
+		this.setInputLayoutConstraints(sizeInputField, 1, 2);
+		this.setInputLayoutConstraints(sizeButton, 1, 3);
+		this.setInputLayoutConstraints(matrixLabel, 2, 1);
+		this.setInputLayoutConstraints(matrixInputField, 2, 2);
+		this.setInputLayoutConstraints(matrixButton, 2, 3);
 		
-		addBButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String inputValue = inputField.getText();
-				float[][] matrix = buildMatrix(inputValue, addElementsLabel);
-				setBMatrix(matrix);
-				matrixDC.displayMatrix(matrix, "Second matrix.");
-			}
-		});
-		
-		this.setInputLayoutConstraints(addElementsLabel, 1, 1);
-		this.setInputLayoutConstraints(inputField, 1, 2);
-		this.setInputLayoutConstraints(addSize, 1, 3);
-		this.setInputLayoutConstraints(addAButton, 2, 1);
-		this.setInputLayoutConstraints(addBButton, 2, 2);
-		
-		this.inputContainer.add(addElementsLabel);
-		this.inputContainer.add(inputField);
-		this.inputContainer.add(addSize);
-		this.inputContainer.add(addAButton);
-		this.inputContainer.add(addBButton);
+		this.inputContainer.add(sizeLabel);
+		this.inputContainer.add(sizeInputField);
+		this.inputContainer.add(sizeButton);
+		this.inputContainer.add(matrixLabel);
+		this.inputContainer.add(matrixInputField);
+		this.inputContainer.add(matrixButton);
 	}
 	
 	/**
