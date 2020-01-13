@@ -6,7 +6,7 @@ import multiplication.Multiplication;
 public class Main {
 
 	public static void main(String[] args) {
-		float[][] aMatrix = {
+		/*float[][] aMatrix = {
 				{1, 2, 3},
 				{4, 5, 6},
 				{7, 8, 9}
@@ -16,7 +16,7 @@ public class Main {
 				{1, 2, 3},
 				{4, 5, 6},
 				{7, 8, 9}
-		};
+		};*/
 		
 		GUIInput guiInput = new GUIInput("Coefficients input.");
 		guiInput.displayGUI();

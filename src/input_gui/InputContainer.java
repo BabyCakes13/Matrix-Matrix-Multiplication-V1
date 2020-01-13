@@ -13,7 +13,7 @@ import gui.Container;
 
 public class InputContainer extends Container{
 	private JPanel inputContainer;
-	private float[][] aMatrix, bMatrix;
+	private float[][] matrix;
 	private int matrixSize;
 	
 	public InputContainer(MatrixDisplayContainer equationContainer, JFrame frame, String containerTitle) {
@@ -30,20 +30,14 @@ public class InputContainer extends Container{
 		System.out.println("Class matrix size is set to: " + this.matrixSize);
 	}
 	
-	private void setAMatrix(float[][] aMatrix) {
-		this.aMatrix = aMatrix;
-	} 
-	
-	private void setBMatrix(float[][] bMatrix) {
-		this.bMatrix = bMatrix;
+	private void setAMatrix(float[][] matrix) {
+		this.matrix = matrix;
+		System.out.println("Matrix has been set");
+		this.displayMatrix(this.matrix);
 	}
 	
 	public float[][] getAMatrix() {
-		return this.aMatrix;
-	}
-	
-	public float[][] getBMatrix() {
-		return this.bMatrix;
+		return this.matrix;
 	}
 	
 	private void addCoefficients(MatrixDisplayContainer matrixDC) {
@@ -60,7 +54,7 @@ public class InputContainer extends Container{
 		sizeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String inputValue = sizeInputField.getText();
-				matrixSize = buildMatrixSize(inputValue, sizeLabel);
+				matrixSize = buildMatrixSize(inputValue, sizeLabel, matrixLabel);
 				setMatrixSize(matrixSize);
 			}
 		});
@@ -94,7 +88,7 @@ public class InputContainer extends Container{
 	 * @param label
 	 * @return
 	 */
-	private int buildMatrixSize(String input, JLabel label) {
+	private int buildMatrixSize(String input, JLabel sizeLabel, JLabel matrixLabel) {
 		String stringMatrixSize = input;
 
 		int matrixSize = 0;
@@ -105,15 +99,17 @@ public class InputContainer extends Container{
 			}
 		
 		if(matrixSize > 0) {
-			label.setText("Good job, human. We shall proceed to the next step...");
+			sizeLabel.setText("Good job, human. We shall proceed to the next step...");
+			matrixLabel.setText("Enter the elements of the matrix " + matrixSize + "*" + matrixSize);
 		}
 		
 		return matrixSize;
 	}
 	
 	private float[][] buildMatrix(String input, JLabel label) {
+		System.out.println("Building the matrix...");
 		float[][] matrix = new float[this.matrixSize][this.matrixSize];
-		label.setText("Enter the elements of the matrix.");
+		label.setText("Matrix added.");
 		String[] stringElements = input.split(",");
 		
 		int stringIndex = 0;
@@ -129,7 +125,8 @@ public class InputContainer extends Container{
 				}
 			}
 		}
-		
+		System.out.println("Matrix build.");
+		this.displayMatrix(matrix);
 		return matrix;
 		
 	}
@@ -142,5 +139,14 @@ public class InputContainer extends Container{
 			return false;
 		}
 		return true;
+	}
+	
+	private void displayMatrix(float[][] matrix) {
+		for(int i = 0; i < this.matrixSize; ++i) {
+			for(int j = 0; j < this.matrixSize; ++j) {
+				System.out.print(matrix[i][j] + " ");
+			}
+			System.out.println("");
+		}
 	}
 }
