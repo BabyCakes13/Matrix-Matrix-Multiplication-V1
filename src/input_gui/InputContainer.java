@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import gui.Container;
+import multiplication.Multiplication;
 
 public class InputContainer extends Container{
 	private JPanel inputContainer;
@@ -44,17 +45,17 @@ public class InputContainer extends Container{
 		JLabel sizeLabel = new JLabel();
 		sizeLabel.setText("Matrix size:");
 		JTextField sizeInputField = new JTextField(10);
-		JButton sizeButton = new JButton("ADD MATRIX SIZE");
+		JButton sizeButton = new JButton("FIRST MATRIX SIZE");
 
 		JLabel matrixLabel = new JLabel();
 		matrixLabel.setText("Matrix:");
 		JTextField matrixInputField = new JTextField(10);
-		JButton matrixButton = new JButton("ADD MATRIX");
+		JButton matrixButton = new JButton("FIRST MATRIX");
 		
 		sizeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String inputValue = sizeInputField.getText();
-				matrixSize = buildMatrixSize(inputValue, sizeLabel, matrixLabel);
+				int matrixSize = buildMatrixSize(inputValue, sizeLabel, matrixLabel);
 				setMatrixSize(matrixSize);
 			}
 		});
@@ -63,8 +64,10 @@ public class InputContainer extends Container{
 			public void actionPerformed(ActionEvent e) {
 				String inputValue = matrixInputField.getText();
 				float[][] matrix = buildMatrix(inputValue, matrixLabel);
-				setAMatrix(matrix);
-				matrixDC.displayMatrix(matrix, "ADDED MATRIX:\n");
+				if(matrix != null) {
+					setAMatrix(matrix);
+					matrixDC.displayMatrix(matrix, "ADDED FIRST MATRIX:\n");
+				}
 			}
 		});
 
@@ -81,6 +84,49 @@ public class InputContainer extends Container{
 		this.inputContainer.add(matrixLabel);
 		this.inputContainer.add(matrixInputField);
 		this.inputContainer.add(matrixButton);
+		
+		JLabel secondSizeLabel = new JLabel();
+		secondSizeLabel.setText("Matrix size:");
+		JTextField secondSizeInputField = new JTextField(10);
+		JButton secondSizeButton = new JButton("SECOND MATRIX SIZE");
+
+		JLabel secondMatrixLabel = new JLabel();
+		secondMatrixLabel.setText("Matrix:");
+		JTextField secondMatrixInputField = new JTextField(10);
+		JButton secondMatrixButton = new JButton("SECOND MATRIX");
+		
+		secondSizeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String inputValue = secondSizeInputField.getText();
+				int matrixSize = buildMatrixSize(inputValue, secondSizeLabel, secondMatrixLabel);
+				setMatrixSize(matrixSize);
+			}
+		});
+		
+		secondMatrixButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String inputValue = secondMatrixInputField.getText();
+				float[][] matrix = buildMatrix(inputValue, secondMatrixLabel);
+				if(matrix != null) {
+					setAMatrix(matrix);
+					matrixDC.displayMatrix(matrix, "ADDED SECOND MATRIX:\n");
+				}
+			}
+		});
+
+		this.setInputLayoutConstraints(secondSizeLabel, 3, 1);
+		this.setInputLayoutConstraints(secondSizeInputField, 3, 2);
+		this.setInputLayoutConstraints(secondSizeButton, 3, 3);
+		this.setInputLayoutConstraints(secondMatrixLabel, 4, 1);
+		this.setInputLayoutConstraints(secondMatrixInputField, 4, 2);
+		this.setInputLayoutConstraints(secondMatrixButton, 4, 3);
+		
+		this.inputContainer.add(secondSizeLabel);
+		this.inputContainer.add(secondSizeInputField);
+		this.inputContainer.add(secondSizeButton);
+		this.inputContainer.add(secondMatrixLabel);
+		this.inputContainer.add(secondMatrixInputField);
+		this.inputContainer.add(secondMatrixButton);
 	}
 	
 	/**
