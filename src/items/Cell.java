@@ -20,4 +20,9 @@ public class Cell {
 	public String toString() {
 		return "Cell[" + this.partialSum + "]";
 	}
+
+	public float getCoefficient() {
+		// TODO Auto-generated method stub
+		return this.partialSum;
+	}
 }

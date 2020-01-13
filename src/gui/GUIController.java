@@ -4,6 +4,8 @@ import multiplication.Multiplication;
 
 import java.awt.GridLayout;
 
+import control_gui.CellContainer;
+
 // import evaluation_gui.CellContainer;
 // import evaluation_gui.ControlContainer;
 // import evaluation_gui.ParseContainer;
@@ -19,17 +21,17 @@ public class GUIController extends GUIBase{
 	}
 	
 	public void displayGUI() {
-		// this.setUpContainers();
+		this.setUpContainers();
 		this.displayFrame(1000, 1000);
 	}
 	
-	/*private void setUpContainers() {
+	private void setUpContainers() {
 		@SuppressWarnings("unused")
 		CellContainer cellContainer = new CellContainer(this.frame, this.multiplication.getCells());
-		ParseContainer parseContainer = new ParseContainer(this.frame, this.multiplication.getCells().size());
-		ResultContainer resultContainer = new ResultContainer(this.frame);
-		@SuppressWarnings("unused")
-		ControlContainer controlContainer = new ControlContainer(this.frame, parseContainer, resultContainer, this.multiplication);
-	}*/
+		//ParseContainer parseContainer = new ParseContainer(this.frame, this.multiplication.getCells().size());
+		//ResultContainer resultContainer = new ResultContainer(this.frame);
+		//@SuppressWarnings("unused")
+		//ControlContainer controlContainer = new ControlContainer(this.frame, parseContainer, resultContainer, this.multiplication);
+	}
 	
 }

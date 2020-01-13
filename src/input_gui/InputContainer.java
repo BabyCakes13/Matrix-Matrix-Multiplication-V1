@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import gui.Container;
+import gui.GUIController;
 import multiplication.Multiplication;
 
 public class InputContainer extends Container{
@@ -81,7 +82,10 @@ public class InputContainer extends Container{
 					if(secondMatrix != null) {
 						System.out.println("INITIATE");
 						// initiate multiplication screen
+						System.out.println(firstMatrix.length + " " + secondMatrix.length);
 						Multiplication multiplication = new Multiplication(firstMatrix, secondMatrix);
+						GUIController guiController = new gui.GUIController("MATRIX-MATRIX MULTIPLICATION", multiplication);
+						guiController.displayGUI();
 					}
 				}
 			}
@@ -131,6 +135,9 @@ public class InputContainer extends Container{
 						System.out.println("INITIATE");
 						// initiate multiplication screen
 						Multiplication multiplication = new Multiplication(firstMatrix, secondMatrix);
+						GUIController guiController = new gui.GUIController("MATRIX-MATRIX MULTIPLICATION", multiplication);
+						System.out.println("MATRICES BEFORE DISPLAY GUI " + multiplication.getFirstMatrix().length + " - " + multiplication.getSecondMatrix().length);
+						guiController.displayGUI();
 					}
 				}
 			}
