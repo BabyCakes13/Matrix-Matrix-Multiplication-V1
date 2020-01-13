@@ -16,12 +16,16 @@ public class Multiplication {
 	private int time;
 	
 	public Multiplication(float[][] aMatrix, float[][] bMatrix) {
+		System.out.println("Multiplication set up.");
 		this.aMatrix = aMatrix;
 		this.bMatrix = bMatrix;
 		
+		System.out.println(this.aMatrix.length);
+		System.out.println(this.bMatrix.length);
+		
 		this.matrixSize = aMatrix.length;
 		this.totalTimeToRun = this.aMatrix.length + this.bMatrix.length; // TODO wrong! Check the actual time.
-		this.initialiseResultMatrix();
+		// TODO this.initialiseResultMatrix();
 	}
 	
 	public Cell[][] getMultiplicationMatrix() {

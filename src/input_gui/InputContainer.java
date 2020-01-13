@@ -81,6 +81,7 @@ public class InputContainer extends Container{
 					if(secondMatrix != null) {
 						System.out.println("INITIATE");
 						// initiate multiplication screen
+						Multiplication multiplication = new Multiplication(firstMatrix, secondMatrix);
 					}
 				}
 			}
@@ -129,6 +130,7 @@ public class InputContainer extends Container{
 					if(firstMatrix != null) {
 						System.out.println("INITIATE");
 						// initiate multiplication screen
+						Multiplication multiplication = new Multiplication(firstMatrix, secondMatrix);
 					}
 				}
 			}
