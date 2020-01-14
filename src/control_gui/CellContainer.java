@@ -50,8 +50,8 @@ public class CellContainer extends Container{
 		for(int i = 0; i < this.cells.length; ++i) {
 			for (int j = 0; j < this.cells.length; ++j) {
 				this.setTableItem(previousAOutputs[i][j], i*2+0, j*2+0);
-				this.setTableItem(previousBOutputs[i][j], i*2+1, j*2+1);
-				this.setTableItem(previousCOutputs[i][j], i*2+1, j*2+0);
+				this.setTableItem(previousBOutputs[i][j], i*2+1, j*2+0);
+				this.setTableItem(previousCOutputs[i][j], i*2+0, j*2+1);
 				//this.setTableItems(Float.NaN, i*2+0, j*2+1); we do not set anything for the fourth row since we don't have the fourth matrix
 			}
 		}

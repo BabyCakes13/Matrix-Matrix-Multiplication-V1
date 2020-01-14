@@ -19,7 +19,7 @@ public class Multiplication {
 	private int traverseTime; // TODO calculate the total time to run;
 	private int time;
 	
-	private int variant = 1;
+	private int variant = 3;
 	
 	public Multiplication(float[][] aMatrix, float[][] bMatrix) {
 		System.out.println("MULTIPLICATION CONSTRUCTOR BEFORE INITIALISE" + aMatrix.length + " " + bMatrix.length);
@@ -251,6 +251,10 @@ public class Multiplication {
 			this.time++;
 			return false;
 		}
+	}
+
+	public float[][] getResult() {
+		return this.resultMatrix;
 	}
 
 }

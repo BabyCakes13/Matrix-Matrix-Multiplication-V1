@@ -56,11 +56,13 @@ public class InputContainer extends Container{
 		JLabel sizeLabel = new JLabel();
 		sizeLabel.setText("Matrix size:");
 		JTextField sizeInputField = new JTextField(10);
+		sizeInputField.setText("2");
 		JButton sizeButton = new JButton("FIRST MATRIX SIZE");
 
 		JLabel matrixLabel = new JLabel();
 		matrixLabel.setText("Matrix:");
 		JTextField matrixInputField = new JTextField(10);
+		matrixInputField.setText("1, 2, 3, 4");
 		JButton matrixButton = new JButton("FIRST MATRIX");
 		
 		sizeButton.addActionListener(new ActionListener() {
@@ -108,11 +110,13 @@ public class InputContainer extends Container{
 		JLabel secondSizeLabel = new JLabel();
 		secondSizeLabel.setText("Matrix size:");
 		JTextField secondSizeInputField = new JTextField(10);
+		secondSizeInputField.setText("2");
 		JButton secondSizeButton = new JButton("SECOND MATRIX SIZE");
 
 		JLabel secondMatrixLabel = new JLabel();
 		secondMatrixLabel.setText("Matrix:");
 		JTextField secondMatrixInputField = new JTextField(10);
+		secondMatrixInputField.setText("5, 6, 7, 8");
 		JButton secondMatrixButton = new JButton("SECOND MATRIX");
 		
 		secondSizeButton.addActionListener(new ActionListener() {
