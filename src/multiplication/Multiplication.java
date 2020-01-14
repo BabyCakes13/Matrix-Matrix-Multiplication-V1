@@ -19,7 +19,7 @@ public class Multiplication {
 	private int totalTimeToRun; // TODO calculate the total time to run;
 	private int time;
 	
-	private int variant = 1;
+	private int variant = 2;
 	
 	public Multiplication(float[][] aMatrix, float[][] bMatrix) {
 		System.out.println("MULTIPLICATION CONSTRUCTOR BEFORE INITIALISE" + aMatrix.length + " " + bMatrix.length);
@@ -51,7 +51,7 @@ public class Multiplication {
 		return this.secondMatrix;
 	}
 	
-	private Cell[][] convertFloatToCell(float[][] matrix) {
+	/*private Cell[][] convertFloatToCell(float[][] matrix) {
 		Cell[][] cellMatrix = new Cell[this.matrixSize][this.matrixSize];
 		
 		for(int i = 0; i < this.matrixSize; ++i) {
@@ -62,7 +62,7 @@ public class Multiplication {
 		}
 		
 		return cellMatrix;
-	}
+	}*/
 	
 	/**
 	 * Set the sum as 0 for the matrix which will represent the multiplication of aMatrix and bMatrix.}=
@@ -72,20 +72,28 @@ public class Multiplication {
 		this.previousCOutputs = new float[this.matrixSize][this.matrixSize];
 		this.previousAOutputs = new float[this.matrixSize][this.matrixSize];
 		this.previousBOutputs = new float[this.matrixSize][this.matrixSize];
+		this.zeroMatrix = new float[this.matrixSize][this.matrixSize];
+		this.resultMatrix = new float[this.matrixSize][this.matrixSize];
 		this.cells = new Cell[this.matrixSize][this.matrixSize];
 		
 		for(int i = 0; i < this.matrixSize; ++i) {
 			for(int j = 0; j < this.matrixSize; ++j) {
-				this.previousCOutputs[i][j] = 0F;
+				this.previousCOutputs[i][j] = FLUSH_VALUE;
 				this.previousAOutputs[i][j] = FLUSH_VALUE;
 				this.previousBOutputs[i][j] = FLUSH_VALUE;
+				this.zeroMatrix[i][j]       = FLUSH_VALUE;
 				this.cells[i][j] = new Cell(0);
 			}
+		}
+		
+		if(variant == 2) {
+			this.previousBOutputs = this.secondMatrix;
+		} else if(variant == 3) {
+			this.previousAOutputs = this.firstMatrix;
 		}
 	}
 	
 	public void startTraversing() {
-		
 		int traverseTime = this.firstMatrix.length*2; // to handle delays
 		for(int i = 0; i < traverseTime; ++i) {
 			traverseCells();
@@ -103,7 +111,10 @@ public class Multiplication {
 			} else if((this.time - i ) >= this.matrixSize) {
 				inputOnRowI = FLUSH_VALUE;
 			} else {
-				inputOnRowI = feedData[i][this.time - i];
+				if (variant == 1)
+					inputOnRowI = feedData[i][this.time - i];
+				else
+					inputOnRowI = feedData[this.time - i][i];
 			}
 			
 			// TODO: get Result:  a_res[i] = stateData[i][this.matrixSize - 1];
@@ -126,7 +137,10 @@ public class Multiplication {
 			} else if((this.time - j ) >= this.matrixSize) {
 				inputOnColumnJ = FLUSH_VALUE;
 			} else {
-				inputOnColumnJ = feedData[this.time - j][j];
+				if (variant == 1)
+					inputOnColumnJ = feedData[this.time - j][j];
+				else
+					inputOnColumnJ = feedData[j][this.time - j];
 			}
 			
 			// TODO: get Result:  b_res[j] = this.previousBOutputs[this.matrixSize - 1][j];
@@ -194,10 +208,26 @@ public class Multiplication {
 						this.previousCOutputs[i][j]);
 			}
 		}
+		
+		displayMatrix(this.currentCOutputs, "this.CURRENTCOutputs");
+
 		if(variant == 1) {
 			this.resultMatrix = this.currentCOutputs;
 			this.displayMatrix(resultMatrix, "resultMatrix");
-		}
+		} else if (variant == 2) {
+			int t_prime = this.time - (this.matrixSize - 1) + 1;
+			for (int i = 0; i < t_prime; ++i) {
+				if ((t_prime - 1 - i < this.matrixSize) && (i < this.matrixSize))
+					this.resultMatrix[t_prime - 1 - i][i] = this.currentCOutputs[this.matrixSize - 1][i];
+			}
+			this.displayMatrix(resultMatrix, "resultMatrix");
+		} else if (variant == 3) {
+			int t_prime = this.time - (this.matrixSize - 1) + 1;
+			for (int i = 0; i < t_prime; ++i) {
+				if ((t_prime - 1 - i < this.matrixSize) && (i < this.matrixSize))
+					this.resultMatrix[i][t_prime - 1 - i] = this.currentCOutputs[i][this.matrixSize - 1];
+			}
+			this.displayMatrix(resultMatrix, "resultMatrix");		}
 				
 		this.previousAOutputs = this.currentAOutputs;
 		this.previousBOutputs = this.currentBOutputs;
