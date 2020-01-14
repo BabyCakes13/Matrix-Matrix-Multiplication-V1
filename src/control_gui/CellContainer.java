@@ -86,8 +86,7 @@ public class CellContainer extends Container{
 	
 	private JTable addTable() {
 		JTable table = new JTable(this.cells.length * 2, this.cells.length * 2); // * 2 so the cell is formed of 4 table slots as a square.
-		table.setPreferredSize(new Dimension(250, 250));
-		table.setPreferredScrollableViewportSize(table.getPreferredSize());
+		table.setTableHeader(null);
 		table.setFont(new Font("Serif", Font.BOLD, 10));
 		table.setDefaultRenderer(Object.class, new MatrixColumnCellRenderer());
 		return table;

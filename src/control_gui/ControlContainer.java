@@ -4,9 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 import gui.Container;
 import multiplication.Multiplication;
@@ -15,7 +19,6 @@ public class ControlContainer extends Container {
 	private JPanel controlContainer;
 	private CellContainer cellContainer;
 	private ResultContainer resultContainer;
-	
 	private Multiplication multiplication;
 	
 	public ControlContainer(JFrame frame, CellContainer cellContainer, ResultContainer resultContainer, Multiplication multiplication) {

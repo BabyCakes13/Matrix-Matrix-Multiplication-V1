@@ -1,12 +1,15 @@
 package input_gui;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import gui.Container;
@@ -17,12 +20,16 @@ public class InputContainer extends Container{
 	private JPanel inputContainer;
 	private float[][] firstMatrix, secondMatrix;
 	private int matrixSize;
+	private ButtonGroup radioButtonGroup;
 	
 	public InputContainer(MatrixDisplayContainer equationContainer, JFrame frame, String containerTitle) {
 		super(frame, containerTitle);
 		this.inputContainer = this.container;
+		this.radioButtonGroup = new ButtonGroup();
 		
 		this.addCoefficients(equationContainer);
+		this.createRadioButtons();
+		
 		frame.add(this.inputContainer);
 		frame.pack();
 	}
@@ -160,6 +167,24 @@ public class InputContainer extends Container{
 		this.inputContainer.add(secondMatrixLabel);
 		this.inputContainer.add(secondMatrixInputField);
 		this.inputContainer.add(secondMatrixButton);
+	} 
+	
+	private void createRadioButtons() {
+		JRadioButton version1 = this.addRadioButton("1", 300, 300);
+		JRadioButton version2 = this.addRadioButton("2", 315, 300);
+		JRadioButton version3 = this.addRadioButton("3", 330, 300);
+	}
+	
+	private JRadioButton addRadioButton(String option, int a, int b) {
+		JRadioButton jRadioButton = new JRadioButton(); 
+		jRadioButton .setText(option); 
+        jRadioButton.setBounds(a, b, 10, 10); 
+        
+        this.inputContainer.add(jRadioButton);
+        this.radioButtonGroup.add(jRadioButton);
+        
+        return jRadioButton;
+  
 	}
 	
 	/**
