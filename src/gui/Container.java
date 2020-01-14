@@ -42,4 +42,19 @@ public class Container {
 		constraints.gridx=gridx;
 		this.containerLayout.setConstraints(object, constraints);
 	}
+	
+	protected void setInputLayoutConstraints(JComponent object) {
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.fill = GridBagConstraints.BOTH;
+		
+		if (object instanceof JTextField) {
+			constraints.gridy=1;
+			constraints.gridheight=2;
+			this.containerLayout.setConstraints(object, constraints);
+		} else {
+			constraints.gridy=1;
+			constraints.gridheight=2;
+			this.containerLayout.setConstraints(object, constraints);
+		}
+	}
 }

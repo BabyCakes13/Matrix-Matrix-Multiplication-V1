@@ -1,14 +1,15 @@
 package control_gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -16,9 +17,9 @@ import gui.Container;
 import items.Cell;
 
 public class CellContainer extends Container{
-	private JPanel cellContainer;
 	private Cell[][] cells;
-	private JTable matrixTable;
+	private JPanel cellContainer;
+	JTable matrixTable;
 	
 	private Color[] COLORS = {new Color(255, 237, 186),
 							  new Color(186, 255, 249),
@@ -28,26 +29,35 @@ public class CellContainer extends Container{
 	
 	public CellContainer(JFrame frame, Cell[][] cells) {
 		super(frame, "Processors.");
-		this.cellContainer = this.container;
 		this.cells = cells;
+		this.cellContainer = this.container;
+		this.cellContainer.setLayout(new BorderLayout());
 		
 		this.matrixTable = addTable();
-		this.populateTable();
+		// initially populate the matrix with 0's so we can see the structure.
+		float[][] zeroMatrix = this.createZeroMatrix(this.cells.length);
+		this.populateTable(zeroMatrix,
+						   zeroMatrix,
+						   zeroMatrix);
 
-		frame.add(this.matrixTable);
+		frame.getContentPane().add( new JScrollPane(this.matrixTable), BorderLayout.CENTER);
 		frame.pack();
 	}
 	
-	private void populateTable() {
+	protected void populateTable(float[][] previousAOutputs,
+			  				   float[][] previousBOutputs,
+			  				   float[][] previousCOutputs) {
 		for(int i = 0; i < this.cells.length; ++i) {
 			for (int j = 0; j < this.cells.length; ++j) {
-				// float partialSum = this.cells[i][j].getCoefficient();
-				this.setTableItems(0, Color.red, i*2+0, j*2+0);
-				this.setTableItems(1, Color.blue, i*2+1, j*2+1);
-				this.setTableItems(2, Color.green, i*2+1, j*2+0);
-				//this.setTableItems(3, Color.white, i*2+0, j*2+1);
+				this.setTableItem(previousAOutputs[i][j], i*2+0, j*2+0);
+				this.setTableItem(previousBOutputs[i][j], i*2+1, j*2+1);
+				this.setTableItem(previousCOutputs[i][j], i*2+1, j*2+0);
+				//this.setTableItems(Float.NaN, i*2+0, j*2+1); we do not set anything for the fourth row since we don't have the fourth matrix
 			}
 		}
+		
+		this.cellContainer.revalidate();
+		this.cellContainer.repaint();
 	}
 	
 	@SuppressWarnings("serial")
@@ -76,28 +86,27 @@ public class CellContainer extends Container{
 	
 	private JTable addTable() {
 		JTable table = new JTable(this.cells.length * 2, this.cells.length * 2); // * 2 so the cell is formed of 4 table slots as a square.
+		table.setPreferredSize(new Dimension(250, 250));
+		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 		table.setFont(new Font("Serif", Font.BOLD, 10));
 		table.setDefaultRenderer(Object.class, new MatrixColumnCellRenderer());
 		return table;
 	}
 	
-	private void setTableItems(float value, Color color, int i, int j) {
+	private void setTableItem(float value,int i, int j) {
 		String stringValue = Float.toString(value);
 		this.matrixTable.setValueAt(stringValue, i, j);
 	}
 	
-	private GridBagConstraints setLayoutConstraints(JComponent object, int gridy, int gridx) {
-		GridBagConstraints constraints = new GridBagConstraints();
-		constraints.weightx = 1.0;
-        constraints.weighty = 1.0;
+	private float[][] createZeroMatrix(int size) {
+		float[][] zeroMatrix = new float[size][size];
 		
-		constraints.fill = GridBagConstraints.BOTH;
-		constraints.gridy = gridy;
-		constraints.gridx = gridx;
+		for(int i = 0; i < size; ++i) {
+			for(int j = 0; j < size; ++j) {
+				zeroMatrix[i][j] = 0;
+			}
+		}
 		
-		this.containerLayout.setConstraints(object, constraints);
-		
-		return constraints;
-		
+		return zeroMatrix;
 	}
 }

@@ -1,58 +1,65 @@
 package control_gui;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import gui.Container;
 import multiplication.Multiplication;
 
-public class ControlContainer extends Container{
+public class ControlContainer extends Container {
 	private JPanel controlContainer;
-	private Multiplication mult;
+	private CellContainer cellContainer;
 	
-	public ControlContainer(JFrame frame, Multiplication mult) {
-		super(frame, "Control.");
-		this.mult = mult;
+	private Multiplication multiplication;
+	
+	public ControlContainer(JFrame frame, CellContainer cellContainer, Multiplication multiplication) {
+		super(frame, "Control");
+		this.controlContainer = this.container;
+		this.controlContainer.setLayout(new BorderLayout());
+		this.multiplication = multiplication;
+		this.cellContainer = cellContainer;
 		
+		this.addPush();
 		
 		frame.add(this.controlContainer);
 		frame.pack();
 	}
 	
 	private void addPush() {
-		JButton pushButton = new JButton("PUSH X");
-		JLabel pushLabel = new JLabel();
-		JTextField pushTextField = new JTextField(20);
-		
-		pushLabel.setText("Push");
+		JButton pushButton = new JButton("PUSH");
 		
 		pushButton.addActionListener(new ActionListener(){
 			   public void actionPerformed(ActionEvent ae){
-			      String textFieldValue = pushTextField.getText();
-			      // handlePushX(textFieldValue);
+			      handlePush();
 			   }
 			});
 		
-		// this.setInputLayoutConstraints(pushLabel);
-		// this.setInputLayoutConstraints(pushButton);
-		// this.setInputLayoutConstraints(pushTextField);
-		
-		this.controlContainer.add(pushLabel);
-		this.controlContainer.add(pushTextField);
-		this.controlContainer.add(pushButton);
+		this.setInputLayoutConstraints(pushButton);
+		this.controlContainer.add(pushButton, BorderLayout.CENTER);
 	}
 	
-	public boolean solveForNewX(float[][] aInputs, float[][] bInputs) {
+	private void handlePush() {
+		System.out.println("PUSH CALLED.");
+		this.makeStep();
+	}
+	
+	private void makeStep() {
+		boolean done = this.multiplication.handlePush();
+		if(!done) {
+			float[][] previousAOutputs = this.multiplication.getPreviousAOutputs();
+			float[][] previousBOutputs = this.multiplication.getPreviousBOutputs();
+			float[][] previousCOutputs = this.multiplication.getPreviousCOutputs();
+			
+			System.out.println(previousAOutputs.length + ":" + previousBOutputs.length + ":" + previousCOutputs.length);
+			this.cellContainer.populateTable(previousAOutputs, previousBOutputs, previousCOutputs);
+		} else {
+			System.out.println("DONE.");
+		}
 		
-		
-		
-		return true;
 	}
 }

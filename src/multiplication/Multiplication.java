@@ -16,23 +16,22 @@ public class Multiplication {
 	private int matrixSize;
 	private float FLUSH_VALUE =  0;//Float.NaN; // TODO check if 0 needed instead of NaN
 	
-	private int totalTimeToRun; // TODO calculate the total time to run;
+	private int traverseTime; // TODO calculate the total time to run;
 	private int time;
 	
-	private int variant = 2;
+	private int variant = 1;
 	
 	public Multiplication(float[][] aMatrix, float[][] bMatrix) {
 		System.out.println("MULTIPLICATION CONSTRUCTOR BEFORE INITIALISE" + aMatrix.length + " " + bMatrix.length);
 		
 		this.firstMatrix = aMatrix; // this.convertFloatToCell(aMatrix);
 		this.secondMatrix = bMatrix; // this.convertFloatToCell(bMatrix);
-		
+		this.traverseTime = this.firstMatrix.length*2;
 		this.matrixSize = aMatrix.length;
-		this.totalTimeToRun = this.firstMatrix.length + this.secondMatrix.length; // TODO wrong! Check the actual time.
 		this.time = 0;
 		this.initialiseResultMatrix();
 		
-		this.startTraversing();
+		// this.startTraversingToEnd();
 	}
 	
 	public float[][] getMultiplicationMatrix() {
@@ -51,18 +50,17 @@ public class Multiplication {
 		return this.secondMatrix;
 	}
 	
-	/*private Cell[][] convertFloatToCell(float[][] matrix) {
-		Cell[][] cellMatrix = new Cell[this.matrixSize][this.matrixSize];
-		
-		for(int i = 0; i < this.matrixSize; ++i) {
-			for(int j = 0; j < this.matrixSize; ++j) {
-				float coefficient = matrix[i][j];
-				cellMatrix[i][j] = new Cell(coefficient);
-			}
-		}
-		
-		return cellMatrix;
-	}*/
+	public float[][] getPreviousAOutputs() {
+		return this.previousAOutputs;
+	}
+	
+	public float[][] getPreviousBOutputs() {
+		return this.previousBOutputs;
+	}
+	
+	public float[][] getPreviousCOutputs() {
+		return this.previousCOutputs;
+	}
 	
 	/**
 	 * Set the sum as 0 for the matrix which will represent the multiplication of aMatrix and bMatrix.}=
@@ -93,7 +91,7 @@ public class Multiplication {
 		}
 	}
 	
-	public void startTraversing() {
+	public void startTraversingToEnd() {
 		int traverseTime = this.firstMatrix.length*2; // to handle delays
 		for(int i = 0; i < traverseTime; ++i) {
 			traverseCells();
@@ -242,6 +240,16 @@ public class Multiplication {
 				System.out.print(matrix[i][j] + " ");
 			}
 			System.out.println("");
+		}
+	}
+
+	public boolean handlePush() {
+		if (this.time > this.traverseTime) {
+			return true;
+		} else {
+			traverseCells();
+			this.time++;
+			return false;
 		}
 	}
 
