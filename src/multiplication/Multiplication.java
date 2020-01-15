@@ -19,13 +19,15 @@ public class Multiplication {
 	private int traverseTime; // TODO calculate the total time to run;
 	private int time;
 	
-	private int variant = 3;
+	private int version = 3;
 	
-	public Multiplication(float[][] aMatrix, float[][] bMatrix) {
+	public Multiplication(float[][] aMatrix, float[][] bMatrix, int version) {
 		System.out.println("MULTIPLICATION CONSTRUCTOR BEFORE INITIALISE" + aMatrix.length + " " + bMatrix.length);
 		
 		this.firstMatrix = aMatrix; // this.convertFloatToCell(aMatrix);
 		this.secondMatrix = bMatrix; // this.convertFloatToCell(bMatrix);
+		this.version = version;
+		
 		this.traverseTime = this.firstMatrix.length*2;
 		this.matrixSize = aMatrix.length;
 		this.time = 0;
@@ -84,9 +86,9 @@ public class Multiplication {
 			}
 		}
 		
-		if(variant == 2) {
+		if(this.version == 2) {
 			this.previousBOutputs = this.secondMatrix;
-		} else if(variant == 3) {
+		} else if(this.version == 3) {
 			this.previousAOutputs = this.firstMatrix;
 		}
 	}
@@ -109,7 +111,7 @@ public class Multiplication {
 			} else if((this.time - i ) >= this.matrixSize) {
 				inputOnRowI = FLUSH_VALUE;
 			} else {
-				if (variant == 1)
+				if (this.version == 1)
 					inputOnRowI = feedData[i][this.time - i];
 				else
 					inputOnRowI = feedData[this.time - i][i];
@@ -135,7 +137,7 @@ public class Multiplication {
 			} else if((this.time - j ) >= this.matrixSize) {
 				inputOnColumnJ = FLUSH_VALUE;
 			} else {
-				if (variant == 1)
+				if (this.version == 1)
 					inputOnColumnJ = feedData[this.time - j][j];
 				else
 					inputOnColumnJ = feedData[j][this.time - j];
@@ -156,7 +158,7 @@ public class Multiplication {
 	}
 	
 	public void traverseCells() {
-		if (variant == 1) { 
+		if (this.version == 1) { 
 			this.previousAOutputs = propagateHorizontal(this.firstMatrix, 
 														this.previousAOutputs, 
 														this.time);
@@ -164,7 +166,7 @@ public class Multiplication {
 					this.previousBOutputs, 
 					this.time);
 			this.previousCOutputs = retainValue(this.previousCOutputs);
-		} else if (variant == 2) {
+		} else if (this.version == 2) {
 			this.previousAOutputs = propagateHorizontal(this.firstMatrix, 
 					this.previousAOutputs, 
 					this.time);
@@ -172,7 +174,7 @@ public class Multiplication {
 			this.previousCOutputs = propagateVertical(this.zeroMatrix, 
 					this.previousCOutputs,
 					this.time);
-		} else if (variant == 3) {
+		} else if (this.version == 3) {
 			this.previousAOutputs = retainValue(this.previousAOutputs);
 			this.previousBOutputs = propagateVertical(this.secondMatrix, 
 					this.previousBOutputs, 
@@ -209,17 +211,17 @@ public class Multiplication {
 		
 		displayMatrix(this.currentCOutputs, "this.CURRENTCOutputs");
 
-		if(variant == 1) {
+		if(this.version == 1) {
 			this.resultMatrix = this.currentCOutputs;
 			this.displayMatrix(resultMatrix, "resultMatrix");
-		} else if (variant == 2) {
+		} else if (this.version == 2) {
 			int t_prime = this.time - (this.matrixSize - 1) + 1;
 			for (int i = 0; i < t_prime; ++i) {
 				if ((t_prime - 1 - i < this.matrixSize) && (i < this.matrixSize))
 					this.resultMatrix[t_prime - 1 - i][i] = this.currentCOutputs[this.matrixSize - 1][i];
 			}
 			this.displayMatrix(resultMatrix, "resultMatrix");
-		} else if (variant == 3) {
+		} else if (this.version == 3) {
 			int t_prime = this.time - (this.matrixSize - 1) + 1;
 			for (int i = 0; i < t_prime; ++i) {
 				if ((t_prime - 1 - i < this.matrixSize) && (i < this.matrixSize))

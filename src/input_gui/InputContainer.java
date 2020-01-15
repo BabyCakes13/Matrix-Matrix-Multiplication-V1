@@ -20,12 +20,14 @@ public class InputContainer extends Container{
 	private JPanel inputContainer;
 	private float[][] firstMatrix, secondMatrix;
 	private int matrixSize;
+	private int versionSelected;
 	private ButtonGroup radioButtonGroup;
 	
 	public InputContainer(MatrixDisplayContainer equationContainer, JFrame frame, String containerTitle) {
 		super(frame, containerTitle);
 		this.inputContainer = this.container;
 		this.radioButtonGroup = new ButtonGroup();
+		versionSelected = 0;
 		
 		this.addCoefficients(equationContainer);
 		this.createRadioButtons();
@@ -135,7 +137,8 @@ public class InputContainer extends Container{
 					displayMatrix(firstMatrix);
 					displayMatrix(secondMatrix);
 					
-					Multiplication multiplication = new Multiplication(firstMatrix, secondMatrix);
+					System.out.println("VERSION: " + versionSelected);
+					Multiplication multiplication = new Multiplication(firstMatrix, secondMatrix, versionSelected);
 					GUIController guiController = new gui.GUIController("MATRIX-MATRIX MULTIPLICATION", multiplication);
 					System.out.println("MATRICES BEFORE DISPLAY GUI " + multiplication.getFirstMatrix().length + " - " + multiplication.getSecondMatrix().length);
 					guiController.displayGUI();
@@ -165,14 +168,21 @@ public class InputContainer extends Container{
 	
 	private JRadioButton addRadioButton(String option, int a, int b) {
 		JRadioButton jRadioButton = new JRadioButton(); 
-		jRadioButton .setText(option); 
+		jRadioButton .setName(option); 
         jRadioButton.setBounds(a, b, 10, 10); 
         
         this.inputContainer.add(jRadioButton);
         this.radioButtonGroup.add(jRadioButton);
         
+        jRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JRadioButton btn = (JRadioButton) e.getSource();
+	            versionSelected = Integer.parseInt(btn.getName());
+			}
+		});
+        
+        
         return jRadioButton;
-  
 	}
 	
 	/**
