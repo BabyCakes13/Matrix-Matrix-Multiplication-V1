@@ -60,59 +60,34 @@ public class InputContainer extends Container{
 	}
 	
 	private void addCoefficients(MatrixDisplayContainer matrixDC) {
-		JLabel sizeLabel = new JLabel();
-		sizeLabel.setText("Matrix size:");
-		JTextField sizeInputField = new JTextField(10);
-		sizeInputField.setText("2");
+		JLabel firstSizeLabel = new JLabel();
+		firstSizeLabel.setText("Matrix size:");
+		JTextField firstSizeInputField = new JTextField(10);
+		firstSizeInputField.setText("2");
 		JButton sizeButton = new JButton("FIRST MATRIX SIZE");
 
-		JLabel matrixLabel = new JLabel();
-		matrixLabel.setText("Matrix:");
-		JTextField matrixInputField = new JTextField(10);
-		matrixInputField.setText("1, 2, 3, 4");
-		JButton matrixButton = new JButton("FIRST MATRIX");
+		JLabel firstMatrixLabel = new JLabel();
+		firstMatrixLabel.setText("Matrix:");
+		JTextField firstMatrixInputField = new JTextField(10);
+		firstMatrixInputField.setText("1, 2, 3, 4");
 		
 		sizeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String inputValue = sizeInputField.getText();
-				int matrixSize = buildMatrixSize(inputValue, sizeLabel, matrixLabel);
+				String inputValue = firstSizeInputField.getText();
+				int matrixSize = buildMatrixSize(inputValue, firstSizeLabel, firstMatrixLabel);
 				setMatrixSize(matrixSize);
 			}
 		});
-		
-		matrixButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String inputValue = matrixInputField.getText();
-				float[][] matrix = buildMatrix(inputValue, matrixLabel);
-				if(matrix != null) {
-					setAMatrix(matrix);
-					matrixDC.displayMatrix(matrix, "ADDED FIRST MATRIX:\n");
-					
-					if(secondMatrix != null) {
-						System.out.println("INITIATE");
-						// initiate multiplication screen
-						System.out.println(firstMatrix.length + " " + secondMatrix.length);
-						Multiplication multiplication = new Multiplication(firstMatrix, secondMatrix);
-						GUIController guiController = new gui.GUIController("MATRIX-MATRIX MULTIPLICATION", multiplication);
-						guiController.displayGUI();
-					}
-				}
-			}
-		});
 
-		this.setInputLayoutConstraints(sizeLabel, 1, 1);
-		this.setInputLayoutConstraints(sizeInputField, 1, 2);
-		this.setInputLayoutConstraints(sizeButton, 1, 3);
-		this.setInputLayoutConstraints(matrixLabel, 2, 1);
-		this.setInputLayoutConstraints(matrixInputField, 2, 2);
-		this.setInputLayoutConstraints(matrixButton, 2, 3);
+		this.setInputLayoutConstraints(firstSizeLabel, 1, 1);
+		this.setInputLayoutConstraints(firstSizeInputField, 1, 3);
+		this.setInputLayoutConstraints(firstMatrixLabel, 2, 1);
+		this.setInputLayoutConstraints(firstMatrixInputField, 2, 3);
 		
-		this.inputContainer.add(sizeLabel);
-		this.inputContainer.add(sizeInputField);
-		this.inputContainer.add(sizeButton);
-		this.inputContainer.add(matrixLabel);
-		this.inputContainer.add(matrixInputField);
-		this.inputContainer.add(matrixButton);
+		this.inputContainer.add(firstSizeLabel);
+		this.inputContainer.add(firstSizeInputField);
+		this.inputContainer.add(firstMatrixLabel);
+		this.inputContainer.add(firstMatrixInputField);
 		
 		JLabel secondSizeLabel = new JLabel();
 		secondSizeLabel.setText("Matrix size:");
@@ -124,7 +99,7 @@ public class InputContainer extends Container{
 		secondMatrixLabel.setText("Matrix:");
 		JTextField secondMatrixInputField = new JTextField(10);
 		secondMatrixInputField.setText("5, 6, 7, 8");
-		JButton secondMatrixButton = new JButton("SECOND MATRIX");
+		JButton matricesInput = new JButton("SET MATRICES.");
 		
 		secondSizeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -134,45 +109,58 @@ public class InputContainer extends Container{
 			}
 		});
 		
-		secondMatrixButton.addActionListener(new ActionListener() {
+		matricesInput.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String inputValue = secondMatrixInputField.getText();
-				float[][] matrix = buildMatrix(inputValue, secondMatrixLabel);
-				if(matrix != null) {
-					setBMatrix(matrix);
-					matrixDC.displayMatrix(matrix, "ADDED SECOND MATRIX:\n");
+				String firstMatrixSizeText = firstSizeInputField.getText();
+				String secondMatrixSizeText = secondSizeInputField.getText();
+				String firstMatrixText = firstMatrixInputField.getText();
+				String secondMatrixText = secondMatrixInputField.getText();
+				
+				int firstMatrixSize = buildMatrixSize(firstMatrixSizeText, firstSizeLabel, firstMatrixLabel);
+				int secondMatrixSize = buildMatrixSize(secondMatrixSizeText, secondSizeLabel, secondMatrixLabel);
+				setMatrixSize(firstMatrixSize);
+				setMatrixSize(secondMatrixSize);
+				
+				float[][] firstMatrix = buildMatrix(firstMatrixText, firstMatrixLabel);
+				float[][] secondMatrix = buildMatrix(secondMatrixText, secondMatrixLabel);
+				
+				if((firstMatrix != null) && (secondMatrix != null)) {
+					matrixDC.displayMatrix(firstMatrix, "ADDED FIRST MATRIX:\n");
+					matrixDC.displayMatrix(secondMatrix, "ADDED SECOND MATRIX:\n");
 					
-					if(firstMatrix != null) {
-						System.out.println("INITIATE");
-						// initiate multiplication screen
-						Multiplication multiplication = new Multiplication(firstMatrix, secondMatrix);
-						GUIController guiController = new gui.GUIController("MATRIX-MATRIX MULTIPLICATION", multiplication);
-						System.out.println("MATRICES BEFORE DISPLAY GUI " + multiplication.getFirstMatrix().length + " - " + multiplication.getSecondMatrix().length);
-						guiController.displayGUI();
-					}
+					System.out.println(" first Matrix size: " + firstMatrixSize);
+					System.out.println(" second Matrix size: " + secondMatrixSize);
+					System.out.println("Matrix size: " + matrixSize);
+					
+					displayMatrix(firstMatrix);
+					displayMatrix(secondMatrix);
+					
+					Multiplication multiplication = new Multiplication(firstMatrix, secondMatrix);
+					GUIController guiController = new gui.GUIController("MATRIX-MATRIX MULTIPLICATION", multiplication);
+					System.out.println("MATRICES BEFORE DISPLAY GUI " + multiplication.getFirstMatrix().length + " - " + multiplication.getSecondMatrix().length);
+					guiController.displayGUI();
 				}
 			}
 		});
 
 		this.setInputLayoutConstraints(secondSizeLabel, 3, 1);
-		this.setInputLayoutConstraints(secondSizeInputField, 3, 2);
-		this.setInputLayoutConstraints(secondSizeButton, 3, 3);
+		this.setInputLayoutConstraints(secondSizeInputField, 3, 3);
 		this.setInputLayoutConstraints(secondMatrixLabel, 4, 1);
-		this.setInputLayoutConstraints(secondMatrixInputField, 4, 2);
-		this.setInputLayoutConstraints(secondMatrixButton, 4, 3);
+		this.setInputLayoutConstraints(secondMatrixInputField, 4, 3);
 		
 		this.inputContainer.add(secondSizeLabel);
 		this.inputContainer.add(secondSizeInputField);
-		this.inputContainer.add(secondSizeButton);
 		this.inputContainer.add(secondMatrixLabel);
 		this.inputContainer.add(secondMatrixInputField);
-		this.inputContainer.add(secondMatrixButton);
+		
+		this.setInputLayoutConstraints(matricesInput, 5, 2);
+		this.inputContainer.add(matricesInput);
 	} 
 	
 	private void createRadioButtons() {
-		JRadioButton version1 = this.addRadioButton("1", 300, 300);
-		JRadioButton version2 = this.addRadioButton("2", 315, 300);
-		JRadioButton version3 = this.addRadioButton("3", 330, 300);
+		this.addRadioButton("1", 300, 300);
+		this.addRadioButton("2", 315, 300);
+		this.addRadioButton("3", 330, 300);
 	}
 	
 	private JRadioButton addRadioButton(String option, int a, int b) {
@@ -194,7 +182,6 @@ public class InputContainer extends Container{
 	 */
 	private int buildMatrixSize(String input, JLabel sizeLabel, JLabel matrixLabel) {
 		String stringMatrixSize = input;
-
 		int matrixSize = 0;
 		try {
 				matrixSize = Integer.parseInt(stringMatrixSize);
@@ -212,6 +199,7 @@ public class InputContainer extends Container{
 	
 	private float[][] buildMatrix(String input, JLabel label) {
 		System.out.println("Building the matrix...");
+		System.out.println(this.matrixSize);
 		float[][] matrix = new float[this.matrixSize][this.matrixSize];
 		label.setText("Matrix added.");
 		String[] stringElements = input.split(",");
@@ -221,6 +209,7 @@ public class InputContainer extends Container{
 			for(int j = 0; j < this.matrixSize; ++j) {
 				String element = stringElements[stringIndex];
 				if(checkNumber(element)) {
+					System.out.println("Parsing element " + stringElements[stringIndex]);
 					matrix[i][j] = Float.parseFloat(stringElements[stringIndex]);
 					stringIndex++;
 				} else {
@@ -237,6 +226,7 @@ public class InputContainer extends Container{
 	
 	private boolean checkNumber(String input) {
 		try {
+			System.out.println("Parsing element in checkNumber " + input);
 			Float.parseFloat(input);
 		} catch (NumberFormatException e) {
 			System.out.println("Please enter a valid number.");
